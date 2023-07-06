@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-
+apply plugin: 'maven-publish'
 android {
     compileSdkVersion 30
 //    buildToolsVersion "29.0.3"
@@ -54,10 +54,24 @@ dependencies {
 //    implementation "com.fz.klog:Klog:1.0.3"
     implementation 'com.github.peihua8858:KLog:1.0.0'
 //    implementation 'com.globalegrow:dimens-android:1.0.0'
+    implementation 'com.google.android.material:material:1.6.1'
 }
-apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.peihua8858'
+//apply plugin: 'com.github.dcendents.android-maven'
 //apply from: "push_maven.gradle"
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+}
+group = 'com.github.peihua8858'
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.peihua8858'
+                artifactId = 'DialogFragment'
+                version = '1.0.1'
+            }
+        }
+    }
 }

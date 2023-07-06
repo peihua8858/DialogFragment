@@ -119,6 +119,7 @@ public class LoadingDialogFragment extends BaseDialogFragment {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setOnKeyListener((dialog1, keyCode, event) -> {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    dismissAllowingStateLoss();
                     Activity activity1 = getActivity();
                     if (isFinishActivity && activity1 != null) {
                         activity1.finish();
