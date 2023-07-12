@@ -13,12 +13,17 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -517,5 +522,40 @@ public class BaseBottomSheetDialogFragment extends BottomSheetDialogFragment {
         TypedValue outValue = new TypedValue();
         context.getTheme().resolveAttribute(resId, outValue, true);
         return outValue.resourceId;
+    }
+
+    protected final ActivityResultContract<Intent, ActivityResult> intentResultContract = new ActivityResultContract<Intent, ActivityResult>() {
+
+        @NonNull
+        @Override
+        public Intent createIntent(@NonNull Context context, Intent input) {
+            return input;
+        }
+
+        @Override
+        public ActivityResult parseResult(int resultCode, @Nullable Intent intent) {
+            return new ActivityResult(resultCode, intent);
+        }
+    };
+
+    protected ActivityResultLauncher<Intent> registerForActivityResult(ActivityResultCallback<ActivityResult> callback) {
+        return registerForActivityResult(intentResultContract, callback);
+    }
+
+    protected <T extends FragmentActivity> ActivityResultLauncher<Void> registerForActivityResult(Class<T> clazz, ActivityResultCallback<ActivityResult> callback) {
+        return registerForActivityResult(new ActivityResultContract<Void, ActivityResult>() {
+
+            @NonNull
+            @Override
+            public Intent createIntent(@NonNull Context context, Void input) {
+                return new Intent(context, clazz);
+            }
+
+            @Override
+            public ActivityResult parseResult(int resultCode, @Nullable Intent intent) {
+                return new ActivityResult(resultCode, intent);
+            }
+
+        }, callback);
     }
 }
