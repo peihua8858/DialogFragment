@@ -19,6 +19,11 @@
         <item name="windowFixedWidthMinor">90%</item>
     </style>
 
+    <style name="DialogAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/dialog_alpha_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_alpha_exit</item>
+    </style>
+
     <attr name="LoadingDialogTheme" format="reference" />
 
     <style name="DefaultLoadingDialogTheme" parent="Theme.AppCompat.Dialog">
@@ -34,5 +39,16 @@
         <item name="android:backgroundDimAmount">0.6</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+    <style name="BottomSheetDialogStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="backgroundColor">@android:color/transparent</item>
+        <item name="background">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:elevation">0dp</item>
     </style>
 </resources>
