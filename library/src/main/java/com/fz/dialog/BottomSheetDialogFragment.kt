@@ -73,12 +73,4 @@ abstract class BottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
             animView.animateIn(true)
         }, 100)
     }
-
-
-    override fun getDialogHeight(): Int {
-        return defaultHeight
-    }
-
-    private val defaultHeight: Int
-        get() = (resources.displayMetrics.heightPixels * 0.75).toInt()
 }

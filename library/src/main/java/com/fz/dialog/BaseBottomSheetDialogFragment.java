@@ -149,14 +149,19 @@ public class BaseBottomSheetDialogFragment extends BottomSheetDialogFragment {
         mBehavior = BottomSheetBehavior.from((View) view.getParent());
         mBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
         ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         int height = getDialogHeight();
+        int width = getDialogWidth();
+        int maxWidth = getDialogMaxWidth();
+        int maxHeight = getDialogMaxHeight();
         layoutParams.height = height;
+        layoutParams.width = width;
         view.setLayoutParams(layoutParams);
         mBehavior.setPeekHeight(0);
         mBehavior.addBottomSheetCallback(getBottomSheetCallback());
-        mBehavior.setMaxHeight(height);
+        mBehavior.setMaxWidth(maxWidth);
+        mBehavior.setMaxHeight(Math.max(maxHeight, height));
     }
+
 
     protected BottomSheetBehavior.BottomSheetCallback getBottomSheetCallback() {
         return new BottomSheetBehavior.BottomSheetCallback() {
@@ -184,6 +189,17 @@ public class BaseBottomSheetDialogFragment extends BottomSheetDialogFragment {
         return getDefaultHeight();
     }
 
+    protected int getDialogMaxHeight() {
+        return getDialogHeight();
+    }
+
+    protected int getDialogWidth() {
+        return ViewGroup.LayoutParams.MATCH_PARENT;
+    }
+
+    protected int getDialogMaxWidth() {
+        return ViewGroup.LayoutParams.MATCH_PARENT;
+    }
 
     private int getDefaultHeight() {
         return (int) (getResources().getDisplayMetrics().heightPixels * 0.8);
