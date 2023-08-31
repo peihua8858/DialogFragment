@@ -43,9 +43,11 @@ abstract class BottomSheetDialogFragment : BaseBottomSheetDialogFragment() {
     }
 
     override fun dismissAllowingStateLoss() {
-        animView.animateOut(true) {
-            onAnimationEnd {
-                super.dismissAllowingStateLoss()
+        if (isShowing) {
+            animView.animateOut(true) {
+                onAnimationEnd {
+                    super.dismissAllowingStateLoss()
+                }
             }
         }
 
