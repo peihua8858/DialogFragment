@@ -355,7 +355,7 @@ public class BaseBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     public final boolean isShowing() {
         Dialog dialog = getDialog();
-        return !isRemoving() && dialog != null && dialog.isShowing();
+        return !isRemoving() && !isDetached() && isAdded() && dialog != null && dialog.isShowing();
     }
 
     @CallSuper
